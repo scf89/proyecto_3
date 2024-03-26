@@ -1,0 +1,12 @@
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.image {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
