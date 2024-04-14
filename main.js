@@ -1,3 +1,4 @@
+import './style.css'
 import { Navbar } from './src/components/navbar/Navbar.js';
 import { ImageGrid } from './src/components/imagegrid/ImageGrid.js';
 

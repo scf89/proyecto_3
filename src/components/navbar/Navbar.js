@@ -5,13 +5,14 @@ export class Navbar {
     constructor() {
         this.element = document.createElement('nav');
         this.element.innerHTML = `
-            <div class="logo">Pinterest Clone</div>
-            <ul class="nav-links">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Explorar</a></li>
-                <li><a href="#">Notificaciones</a></li>
-                <!-- Agrega más elementos según sea necesario -->
-            </ul>
+        <h1>P</h1>
+        <input type="text" placeholder="Search" id="searchinput"/>
+        <button id="searchbtn"><img src="/icons/search.svg" alt="Search icon"/></button>
+        <img
+          src="/images/profile.jpg"
+          alt="Profile image"
+          class="profileimg"
+        />
         `;
         this.element.classList.add('navbar'); // Agregamos una clase para los estilos
     }

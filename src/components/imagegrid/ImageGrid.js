@@ -1,32 +1,89 @@
 // components/ImageGrid.js
 import "./ImageGrid.css";
-import axios from '../../../node_modules/axios';
+import { createApi } from 'unsplash-js';
+
+const unsplash = createApi({
+    accessKey: 'hQe2ipcaUtiCoaYJhch0M4aHenhB2RtFlscfU5XdbBM',
+    //...other fetch options
+    });
+const searchPhotos = async (keyword) => {
+    const images = await unsplash.search.getPhotos({
+    query: keyword,
+    page: 1,
+    perPage: 10,
+    color: 'green',
+    orientation: 'portrait',
+    });
+    return images
+}
+
+const galleryListeners = async () => {
+    const input = document.querySelector("#searchinput")
+    const btn = document.querySelector("#searchbtn")
+    btn.addEventListener("click", async () => {
+        const images = await searchPhotos(input.value)
+        printItems(images.response.results);
+    });
+}
+
+const printItems = (items) => {
+    document.querySelector("#image-grid").innerHTML='';
+    console.log(items.length);
+    if(items.length>0){
+        items.forEach(element => {
+            const img = document.createElement('img'); // Crear un elemento de imagen
+            img.src = element.urls.small;
+            img.classList.add('image');
+            document.querySelector("#image-grid").appendChild(img);
+        });
+    } else {
+        const div = document.createElement('div');
+        const btn1 = document.createElement("button");
+        btn1.innerHTML = 'moon';
+        btn1.addEventListener("click", async () => {
+            const images = await searchPhotos('moon')
+            printItems(images.response.results);
+        });
+        div.appendChild(btn1);
+        const btn2 = document.createElement("button");
+        btn2.innerHTML = 'dog';
+        btn2.addEventListener("click", async () => {
+            const images = await searchPhotos('dog')
+            printItems(images.response.results);
+        });
+        div.appendChild(btn2);
+        const btn3 = document.createElement("button");
+        btn3.innerHTML = 'river';
+        btn3.addEventListener("click", async () => {
+            const images = await searchPhotos('river')
+            printItems(images.response.results);
+        });
+        div.appendChild(btn3);
+        document.querySelector("#image-grid").appendChild(div);
+    }
+  }
 
 export class ImageGrid {
     constructor() {
         this.element = document.createElement('div');
         this.element.classList.add('image-grid'); // Agregamos una clase para los estilos
-        this.element.innerHTML = `
-            <div class="image">Imagen 1</div>
-            <div class="image">Imagen 2</div>
-            <div class="image">Imagen 3</div>
-            <!-- Agrega más imágenes o datos dinámicos según sea necesario -->
-        `;
-        let images;
+        this.element.id = 'image-grid';
 
-        axios.get('https://api.unsplash.com/photos/?client_id=hQe2ipcaUtiCoaYJhch0M4aHenhB2RtFlscfU5XdbBM')
-            .then(response => {
-                console.log(response.data);
-                response.data.forEach(element => {
-                    const img = document.createElement('img'); // Crear un elemento de imagen
-                    img.src = element.urls.small;
-                    this.element.appendChild(img);
-                });
-            })
-            .catch(error => console.error('Error:', error));
+        
+        const printTemplate = async () => {
+            const images = await searchPhotos("cat");
+            galleryListeners();
+            console.log(images.response.results);
+            printItems(images.response.results);
+        }
+        printTemplate();
     }
 
     render() {
         return this.element;
     }
 }
+
+
+
+
