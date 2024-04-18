@@ -30,6 +30,8 @@ const printItems = (items) => {
     document.querySelector("#image-grid").innerHTML='';
     console.log(items.length);
     if(items.length>0){
+        document.querySelector("#image-grid").classList.remove('option-buttons');
+        document.querySelector("#image-grid").classList.add('image-grid');
         items.forEach(element => {
             const img = document.createElement('img'); // Crear un elemento de imagen
             img.src = element.urls.small;
@@ -37,29 +39,29 @@ const printItems = (items) => {
             document.querySelector("#image-grid").appendChild(img);
         });
     } else {
-        const div = document.createElement('div');
+        document.querySelector("#image-grid").classList.add('option-buttons');
+        document.querySelector("#image-grid").classList.remove('image-grid');
         const btn1 = document.createElement("button");
         btn1.innerHTML = 'moon';
         btn1.addEventListener("click", async () => {
             const images = await searchPhotos('moon')
             printItems(images.response.results);
         });
-        div.appendChild(btn1);
+        document.querySelector("#image-grid").appendChild(btn1);
         const btn2 = document.createElement("button");
         btn2.innerHTML = 'dog';
         btn2.addEventListener("click", async () => {
             const images = await searchPhotos('dog')
             printItems(images.response.results);
         });
-        div.appendChild(btn2);
+        document.querySelector("#image-grid").appendChild(btn2);
         const btn3 = document.createElement("button");
         btn3.innerHTML = 'river';
         btn3.addEventListener("click", async () => {
             const images = await searchPhotos('river')
             printItems(images.response.results);
         });
-        div.appendChild(btn3);
-        document.querySelector("#image-grid").appendChild(div);
+        document.querySelector("#image-grid").appendChild(btn3);
     }
   }
 

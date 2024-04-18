@@ -7,12 +7,8 @@ export class Navbar {
         this.element.innerHTML = `
         <h1>P</h1>
         <input type="text" placeholder="Search" id="searchinput"/>
-        <button id="searchbtn"><img src="/icons/search.svg" alt="Search icon"/></button>
-        <img
-          src="/images/profile.jpg"
-          alt="Profile image"
-          class="profileimg"
-        />
+        <button id="searchbtn"><i class="fas fa-search"></i></button>
+        <a href="#"><i class="fas fa-user"></i></a>
         `;
         this.element.classList.add('navbar'); // Agregamos una clase para los estilos
     }
